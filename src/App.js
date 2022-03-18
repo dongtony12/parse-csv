@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useEffect, useState } from "react";
+import CsvParse from "@vtex/react-csv-parse";
 
-function App() {
+const App = () => {
+  const keys = ["header1", "header2", "header3", "header4", "header5"];
+  const [data, setData] = useState([]);
+
+  const handleData = (data) => {
+    setData(data);
+  };
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CsvParse
+        keys={keys}
+        onDataUploaded={handleData}
+        render={(onChange) => <input type="file" onChange={onChange} />}
+      />
     </div>
   );
-}
+};
 
 export default App;
